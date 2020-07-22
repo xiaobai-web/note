@@ -1,0 +1,33 @@
+command + f 查找当前文件
+
+command + r 查找替换
+
+command + e 打开最近的文件
+
+command + n 查询文件夹
+
+command + shift + f 关键字查找,更强大的查询器(机器不好的，最好还是先确定一下目录)
+
+command + shift + r 高级替换
+
+alt + shift + c 查找最近修改的文件
+
+alt + f7 直接查询选中的字符
+
+ctrl + f7 文件中查询选中字符
+
+command + 鼠标点击 跳到类或方法或变量等声明处
+
+command + shift + tab 切换tab页文件
+
+ctrl + i 快速生成插入魔术方法
+
+ctrol + o 复写父类方法
+
+command + alt + l 对当前文件进行格式化排版
+
+command + d 复制当剪行
+
+command + / // 注释
+
+command + shift + / / / 注释

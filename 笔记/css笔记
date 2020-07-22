@@ -1,0 +1,52 @@
+css笔记
+CSS新特性
+:first-child 选择器匹配其父元素中的第一个子元素。
+:first-of-type 选择器匹配元素其父级是特定类型的第一个子元素。
+:last-of-type选择器匹配元素其父级是特定类型的最后一个子元素。
+:last-child选择器用来匹配父元素中最后一个子元素。
+:not(selector) 选择器匹配每个元素是不是指定的元素/选择器。
+
+text-overflow 属性 规定当文本溢出包含元素时发生的事情。值:ellipsis
+box-sizing 属性 将边框和内边距放入框中。 默认:content-box 可选:border-box
+
+display 属性 规定元素应该生成的框的类型。 
+    none    此元素不会被显示。
+    block   此元素将显示为块级元素，此元素前后会带有换行符。
+    inline  默认。此元素会被显示为内联元素，元素前后没有换行符。
+    inline-block    行内块元素。（CSS2.1 新增的值）
+    list-item   此元素会作为列表显示。
+    run-in  此元素会根据上下文作为块级元素或内联元素显示。
+    table   此元素会作为块级表格来显示（类似 <table>），表格前后带有换行符。
+    inline-table    此元素会作为内联表格来显示（类似 <table>），表格前后没有换行符。
+    table-row-group 此元素会作为一个或多个行的分组来显示（类似 <tbody>）。
+    table-header-group  此元素会作为一个或多个行的分组来显示（类似 <thead>）。
+    table-footer-group  此元素会作为一个或多个行的分组来显示（类似 <tfoot>）。
+    table-row   此元素会作为一个表格行显示（类似 <tr>）。
+    table-column-group  此元素会作为一个或多个列的分组来显示（类似 <colgroup>）。
+    table-column    此元素会作为一个单元格列显示（类似 <col>）
+    table-cell  此元素会作为一个表格单元格显示（类似 <td> 和 <th>）
+    table-caption   此元素会作为一个表格标题显示（类似 <caption>）
+    inherit 规定应该从父元素继承 display 属性的值。
+    flex
+flex-direction 属性 搭配display:flex使用
+    row 沿水平主轴让元素从左向右排列
+    column 让元素沿垂直主轴从上到下垂直排列
+    row-reverse 沿水平主轴让元素从右向左排列
+flex-wrap 容器内元素的换行
+    nowrap (默认)元素不换行
+    wrap 元素换行
+justify-content 元素在主轴(页面)上的排列
+    center 元素在主轴(页面)上居中排列
+    flex-start 元素在主轴(页面)上由左或者上开始排列
+    flex-end 元素在主轴(页面)上由右或者下开始排列
+
+HTML5
+定义web页面的不同部分
+    <header>
+    <nav>
+    <section>
+    <article>
+    <aside>
+    <figcaption>
+    <figure>
+    <footer>

@@ -1,0 +1,53 @@
+Nginx 特点
+    更快:单次请求响应更快,高并发可以更快的处理响应
+    高拓展性:设计极具扩展性,由多个不同功能、不同层次、不同类型且耦合度极低的模块组成
+    高可靠性:很多高流量网站都在核心服务器上大规模使用 Nginx
+    低内存消耗:一般1万个非活跃的 HTTP Keep-Alive 连接在 Nginx 中仅消耗2.5MB内存
+    高并发:单机支持10万以上的并发连接
+    热部署:master 管理进程与 worker工作进程的分离设计,使得 Nginx 能够支持热部署
+    开源协议:使用 BSD 许可协议,免费使用,且可修改源码
+
+Nginx 配置
+    基本配置
+    配置项	                                            默认	                        用途
+    daemon on|off;	                                    on	是否以守护进程方式运行       Nginx
+    master_process on|off;	                            on	是否以 master/worker        方式工作
+    error_log /path/file level;	logs/error.log error;	error                           日志的设置
+    include /path/file;		                                                            嵌入其他配置文件
+    pid path/file	                                    logs/nginx.pid	                pid文件的路径
+    user username [groupname];	                        nobody nobody	                Nginx worker 进程运行的用户及用户组
+    worker_processes number;	                        4	                            Nginx worker 进程个数
+    worker_connections number;		                                                    每个 worker 的最大连接数
+    worker_cpu_affinity cpumask [cpumask...]	        1000 0100 0010 0001;	        绑定 Nginx worker 进程到指定的 CPU 内核
+    accept_mutex on|off;	                            on	                            是否打开 accept 锁
+    accept_mutex_delay Nms;	                            500ms	                        再次获取锁延迟时间
+
+    Web 服务器配置
+    配置项	                            默认	        用途	                    配置块
+    listen 80;		                                    监听端口	                server
+    server_name name;	                ""	            主机名称	                server
+    root path;	                        html	        以 root 方式设置资源路径	    http、server、location
+    index file ...;	index index.html	                访问首页	                http、server、location
+    error_page 404 /404.html		                    根据 HTTP 返回码重定向页面	http、server、location
+    try_files path1 [path2] uri;		                try_files	                server、location
+    location [=||*|^~|@]/uri/{...}	    location	    匹配请求                     server
+
+    网络连接配置
+    配置项	                            默认	用途	                            配置块
+    client_header_timeout time;	        60	    读取HTTP头部的超时时间	            http、server、location
+    client_body_timeout time;	        60	    读取HTTP包体的超时时间	            http、server、location
+    send_timeout time;	                60	    发送响应的超时时间	                http、server、location
+    lingering_close off|on|always;	    on	    该配置控制 Nginx 关闭用户连接的方式	http、server、location
+    lingering_time time;	            30s	    最大连接时间                         http、server、location
+
+    客户端请求配置
+    配置项	                        默认	用途	                        配置块
+    limit_except method ...{...}		    按 HTTP 方法名限制用户请求	    location
+    client_max_body_size size;	    1m	    HTTP 请求包体的最大值	        http、server、location
+    limit_rate speed;	            0	    对请求的限速	                    http、server、location
+    limit_rate_after time;	        1m	    发送响应长度超过1m后限速	        http、server、location
+
+反向代理
+    反向代理是指代理服务器来接受 Internet 上的连接请求,然后将请求转发给内部网络中的上游服务器,并将从上游服务器上得到的结果返回给 Internet 上请求连接的客户端,此时代理服务器对外的表现就是一个 Web 服务器
+    当客户端发来 HTTP 请求时,Nginx 并不会立即转发到上游服务器,而是先把用户的请求(包括 HTTP 包体)完整地接受到 Nginx 所在服务器的硬盘或者内存中,然后再向上游服务器发起连接,把缓存的客户端请求转发到上游服务器
+    缺点是延长了请求的处理时间,并增加了用于缓存请求内容的内存和磁盘空间。优点则是降低了上游服务器的负载,尽量把压力放在了 Nginx 服务器上

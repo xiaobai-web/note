@@ -1,0 +1,275 @@
+Python笔记
+基础
+    运行程序
+        切换到源代码所在目录并执行下面命令
+            python 文件名
+    注释
+        单行注释 - 以#和空格开头的部分
+        多行注释 - 三个引号开头，三个引号结尾
+    引用函数库
+        import 函数库名
+    引用某文件下的函数
+        from module(文件名) import function(函数)
+        或
+        import module as m1
+        m1.funcition()
+        使用import会自动执行文件内可执行的代码
+    变量命名
+        大小写敏感
+        多用小写字母及下划线命名法
+        受保护的实例属性用单个下划线开头
+        私有的实例属性用两个下划线开头
+    占位符
+        %d  整数占位符
+        %%  百分号
+        %f  小数占位符
+        %s  字符串占位符
+    关键字
+        nonlocal\global    在局部变量中声明全局变量
+        with as            上下文环境语法
+
+    函数
+        支持设定默认值
+        支持设定可变参数,在参数前加*号
+        def     定义函数
+        def inner(*args, **kwargs):  # *args 表示任何多个无名参数,**kwargs 表示关键字参数
+    if语句
+        没有用花括号来构造代码块而是使用了缩进的方式来设置代码的层次结构 例如:
+        if username == 'admin' and password == '123456':
+            print('身份验证成功!')
+        else:
+            print('身份验证失败!')
+        for-in循环  明确的知道循环执行的次数或者要对一个容器进行迭代
+            for x in range(100):
+                print(x)
+    while循环   构造不知道具体循环次数的循环结构
+        while bool值:
+            循环n次
+            break or continue
+    end
+        输出结尾符,如end = ''时不换行     
+
+    进程
+        fork() 可用来创建进程,调用fork()函数的是父进程,创建出的是子进程。但windows系统没有fork()调用,可以使用multiprocessing模块来处理
+        Process 创建新进程的两种方式
+            以指定函数作为target,创建 Process 对象即可创建新进程。
+                mp1 = multiprocessing.Process(target=action,args=(100,))
+            继承 Process 类,并重写它的 run() 方法来创建进程类,程序创建 Process 子类的实例作为进程。
+
+        os.getpid()     获取进程号
+    线程
+        threading模块进行线程开发
+        
+
+
+数据结构
+    字符串
+        字符串输出
+            print('{0} * {1} = {2}'.format(a, b, a * b))
+            或
+            print(f'{a} * {b} = {a * b}')
+        +   字符串拼接
+        *   字符串重复
+        in(not in)  判断字符串是否包含另一字符串
+        [][:]       进行字符串切片运算
+            str[2]      取字符串下标为2的字符
+            str[2:5]    取字符串下标为2到5的字符
+            str[2:]     取字符串下标为2到末尾的字符
+            str[2::2]   取字符串下标为2间隔为2到末尾的字符
+            str[::2]    取字符串开头,间隔为2到末尾的字符
+            str[::-1]   取字符串末尾,间隔为-1到开头的字符
+            str[-3:-1]  取字符串末尾第三个字符,到末尾第一个字符之间的
+
+    列表
+        列表循环
+            for index, elem in enumerate(list):
+                print(index, elem)
+            for elem in list:
+                print(elem)
+            for index in range(len(list)):
+                print(list[index])
+        in(not in)  判断列表是否有该元素
+        列表同样可以进行切片运算
+        列表生成式
+            [x for x in range(1, 10)]
+            [x + y for x in 'ABCDE' for y in '1234567']
+            # 提取大于0的数
+            c = [1, 3, -3, 4, -2, 8, -7, 6]
+            d = [x for x in c if x > 0]
+        列表生成器   不会占用额外的空间内存,再用到数据时才生成
+            (x ** 2 for x in range(1, 1000))
+    元组
+        与列表相同,但元组无法被修改
+        t = ('骆昊', 38, True, '四川成都')
+    集合
+        创建集合
+            set = {1, 2, 3, 3, 3, 2}
+            set = set(range(1, 10))
+            set3 = set((1, 2, 3, 3, 2, 1))
+        集合运算
+            交集
+                set1 & set2 
+                set1.intersection(set2)
+            并集
+                set1 | set2
+                set1.union(set2)
+            差集
+                set1 - set2
+                set1.difference(set2)
+            对称差
+                set1 ^ set2
+                set1.symmetric_difference(set2)
+    字典
+        创建字典
+            {'骆昊': 95, '白元芳': 78, '狄仁杰': 82}
+            dict(one=1, two=2, three=3, four=4)
+            dict(zip(['a', 'b', 'c'], '123'))
+            {num: num ** 2 for num in range(1, 10)}
+        遍历字典
+            for key in scores:
+                print(f'{key}: {scores[key]}')
+
+    常用函数
+        type()  查看变量类型
+        int()   将数值或字符串转换为整数
+        float() 将一个字符串转换成浮点数
+        str()   将对象转换成字符串
+        chr()   将整数转换成该编码对应的字符串
+        ord()   将字符串转换成对应的编码整数
+        range(1, 100, 2)) 产生一个1到99的奇数序列,其中2是步长,即数值序列的增量。
+        time.localtime          格式化时间戳为本地时间
+        random.randrange()      返回随机数指定范围随机数
+        random.randint()        返回随机数指定范围随机数
+        random.shuffle()        将元素乱序排序
+        open()                  打开一个文件,参数一:文件路径,参数二:读取模式,参数三:指定编码
+            file对象方法
+                file.read([size])       size未指定返回整个文件
+                file.readline()         返回一行
+                file.readlines([size])  返回包含size行的列表,size未指定则返回全部行
+                for line in f: print line 通过迭代器访问
+                file.write()            只能写入字符串
+                file.tell()             文件指针的位置
+                file.close()            关闭文件
+                f.seek(偏移量,起始位置)  移动文件指针
+
+        字符串函数
+            len(str)            计算字符串长度
+            str.capitalize()    获得字符串首字母大写的拷贝
+            str.title()         获得字符串每个单词首字母大写的拷贝
+            str.upper()         获得字符串变大写后的拷贝
+            str.find()          从字符串查找子串所在的位置,未查找到返回-1
+            str.index()         同find(),但找不到子串时会引发异常
+            str.startswith()    检查字符串是否以指定字符串开头
+            str.endswith()      检查字符串是否以指定的字符串结尾
+            str.center(50, '*') 以指定的宽度居中并在两侧填充指定的字符
+            str.rjust(50, '*')  以指定的宽度靠右放置左侧填充指定的字符
+            str.isdigit()       检查字符串是否又数字构成
+            str.isalpha()       检查字符串是否以字母构成
+            str.isalnum()       检查字符串是否以数字和字母构成
+            str.strip()         去除字符串左右两侧空格的拷贝
+        列表函数
+            list.append()       在列表末尾添加元素
+            list.insert()       替换列表某个元素
+            list.extend()       合并列表,等同+=
+            list.remove()       移除存在该值的元素
+            list.pop()          移除对应下标的元素
+            list.clear()        清空列表
+            sorted()            排序函数,默认按字母顺序排序,也可按长度排序( list.sort() 或  sorted(lst, key=len) )
+        集合函数
+            set.add()           从末尾添加一个元素
+            set.update()        添加多个元素
+            set.discard()       删除对应值的元素
+            set.remove()        删除对应值的元素
+            set.pop()           删除第一个元素
+        字典函数
+            scores.update()     添加元素
+            scores.get()        即可用来获取对应键的值同时可以用来设置默认值
+            scores.popitem()    删除字典最后一个元素
+            scores.pop()        删除对应下标元素
+            scores.clear()      清空字典
+        json模块
+            dump                将Python对象按照JSON格式序列化到文件中
+            dumps               将Python对象处理成JSON格式的字符串
+            load                将文件中的JSON数据反序列化成对象
+            loads               将字符串的内容反序列化成Python对象
+        time模块
+            sleep()             程序等待几秒
+            time()              获取当前时间戳
+        re模块
+            compile()   编译正则表达式返回正则表达式对象
+            match()     用正则表达式匹配字符串,成功返回匹配对象,否则返回None
+            search()    搜索字符串中第一次出现正则表达式的模式,成功返回匹配对象,否则返回None
+            split()     用正则表达式指定的模式分隔符拆分字符串,返回列表
+            sub()       用指定的字符串替换原字符串中与正则表达式匹配的模式,可以用count指定替换的次数
+            findall()   查找字符串所有与正则表达式匹配的模式 返回字符串的列表
+            finditer()  查找字符串所有与正则表达式匹配的模式 返回一个迭代器
+            purge()     清楚隐式编译的正则表达式
+            re.I        忽略大小写匹配标记
+            re.M        多行匹配标记
+        multiprocessing模块
+            Process类
+                start()     启动进程,并调用该子进程中的p.run()
+                run()       进程启动进运行的方法,就是它去调用target指定的函数
+                terminate() 强制终止进程,但不会进行清理操作
+                is_alive()  判断进程是否存在
+                join()      让主线程等待某一子进程结束,才继续执行主程序。若带有参数则表示最大等待时间。
+
+
+类
+    __init__ 初始化方法
+    @property装饰器   用于修改类的对应属性的方法
+    __slots__魔法     限定当前类绑定的属性
+    __str__           当前类打印时,会执行的方法
+    静态方法          不针对该对象的方法
+    类方法 第一个参数为cls,代表当前类的对象
+    继承
+        class Teacher(Person):  括号内为要继承的类
+        super()                 表示继承的父类
+
+修饰器
+        相当于一个函数,内置到所设函数里
+        property        类属性(用于设置类的私密属性)
+        classmethod     类方法(第一个参数为cls,代表当前类的对象)
+        staticmethod    静态方法(不针对该对象的方法)
+
+
+常用函数库
+    Turtle库
+        turtle.screensize(canvwidth=None, canvheight=None, bg=None)     设置画布大小
+        turtle.setup(width=0.5, height=0.75, startx=None, starty=None)  设置窗口大小,默认在屏幕中间
+        turtle.pensize()                                                设置画笔的宽度
+        turtle.pencolor()                                               没有参数传入,返回当前画笔颜色,传入参数设置画笔颜色,可以是字符串如"green", "red",也可以是RGB 3原组。
+        turtle.speed()                                                  设置画笔移动速度,速度范围[0,10]整数,数字越大速度越快
+        turtle.delay(delay=None)                                        设置或返回以毫秒为单位的绘图延迟
+        turtle.mainloop()或turtle.done()                                启动事件循环,必须是乌龟图形程序中的最后一个语句。
+
+        画笔运动命令
+            turtle.forward(distance)    向当前画笔方向移动distance像素长度
+            turtle.backward(distance)   向当前画笔相反方向移动distance像素长度
+            turtle.right(degree)        顺时针移动degree°
+            turtle.left(degree)         逆时针移动degree°
+            turtle.pendown()            落下画笔
+            turtle.goto(x,y)            将画笔移动到坐标为x,y的位置
+            turtle.penup()              提起笔移动，不绘制图形,用于另起一个地方绘制
+            turtle.circle()             画圆,半径为正(负),表示圆心在画笔的左边(右边)画圆
+            setx( )                     将当前x轴移动到指定位置
+            sety( )                     将当前y轴移动到指定位置
+            setheading(angle)           设置当前朝向为angle角度
+            home()                      设置当前画笔位置为原点,朝向东。
+            dot(r)                      绘制一个指定直径和颜色的圆点
+        画笔控制命令
+            turtle.fillcolor(colorstring)   绘制图形的填充颜色
+            turtle.color(color1, color2)    同时设置画笔颜色,填充颜色
+            turtle.filling()                返回当前是否在填充状态
+            turtle.begin_fill()             准备开始填充图形
+            turtle.end_fill()               填充完成
+            turtle.hideturtle()             隐藏画笔的turtle形状
+            turtle.showturtle()             显示画笔的turtle形状
+        全局控制命令
+            turtle.clear()              清空turtle窗口,但是turtle的位置和状态不会改变
+            turtle.reset()              清空窗口，重置turtle状态为起始状态
+            turtle.undo()               撤销上一个turtle动作
+            turtle.isvisible()          返回当前turtle是否可见
+            stamp()                     复制当前图形
+            turtle.write(s [,font=("font-name",font_size,"font_type")])   写文本，s为文本内容，font是字体的参数，分别为字体名称，大小和类型；font为可选项，font参数也是可选项
+

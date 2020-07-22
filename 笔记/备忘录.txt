@@ -1,0 +1,34 @@
+
+购物节购买清单
+    洗发水(必买)
+    沐浴露
+    纸
+    电动牙刷
+
+网站(治愈)
+    
+
+指导记录表
+进展请客记录表
+中期自查表
+中期检查表
+
+type            发送类型
+device_tokens   设备唯一标识符
+alias_type      别名类型
+alias           设备别名
+filter          用户筛选条件
+title           通知标题
+subtitle        字幕
+body            描述
+start_time      定时发送
+expire_time     消息过期时间
+apns_collapse_id    避免重复发送相同类型通知
+production_mode 正式/测试模式
+description     发送消息描述
+msg_id          单播id
+task_id         友盟信息id
+status          信息状态
+total_count     投递设备数
+sent_count      成功投递设备数
+open_count      打开设备数
