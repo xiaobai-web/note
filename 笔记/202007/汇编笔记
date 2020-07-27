@@ -75,6 +75,23 @@ CPU中
             以下的指令不可用
                 mov ax,[bx+bp]
                 mov ax,[si+di]
+        flag 标志寄存器
+            0=>CF
+                记录无符号运算后,运算结果最高有效位向更高位的进位值,或从更高位的错位值
+            2=>PF
+                记录相关指令执行(算术逻辑指令)后,其结果的所有bit位中1的个数是否为偶数.若1的个数为偶数,pf=1;为奇数,则pf=0.
+            4=>AF
+            6=>ZF
+                记录相关指令执行(算术逻辑指令)后,其结果是否为0.结果为0,zf=1;结果不为0,zf=0.
+            7=>SF
+                记录进行有符号运算时,其结果是否为负.若结果为负,sf=1;为非负,sf=0.
+            8=>TF
+                单步中段标志,TF=1时,引发中段过程
+            9=>IF
+            10=>DF
+                串处理指令中,控制si、di的增减
+            11=>OF
+                进行有符号运算时,若溢出则OF=1,反之为OF=0
 
 Debug调试工具
     R   命令查看、改变CPU寄存器的内容
@@ -142,8 +159,65 @@ Debug调试工具
             一个默认放在AL中,结果放在AX中
         16位乘法
             一个默认放在AX中,结果高位放在DX中存放,低位放在AX中
+    abc 带进位加法指令
+        adc ax,ax 等于 ax=ax+ax+cf
+    sbb 带借位减法指令
+        sbb ax,bx 等于 ax=ax-bx-CF
+    cmp 比较指令
+        cmp ax,ax 相当于进行ax-ax的运算,并修改flag寄存器中的标志位,不保存运算结果
+        带符号的比较 (cmp ah,bh为例)
+            sf=1,of=0
+                ah<bh
+            sf=1,of=1
+                ah>bh
+            sf=0,of=1
+                ah<bh
+            sf=0,of=0
+                ah>=bh
+    条件转移指令
+        je      等于则转移       zf=1
+        jne     不等于转移       zf=0
+        jb      低于则转移       cf=1
+        jnb     不低于则转移     cf=0
+        ja      高于则转移       cf=0 且 zf=0
+        jna     不高于则转移     cf=1 或 zf=1
+    movsb
+        相当于
+        mov es:[di],byte ptr ds:[si]
+        如果df=0
+            inc si
+            inc di
+        如果df=1
+            dec si
+            dec di
+    movsw
+        相当于
+        mov es:[di],word ptr ds:[si]
+        如果df=0
+            add si,2
+            add di,2
+        如果df=1
+            sub si,2
+            sub di,2
+    rep
+        搭配movsb、movsw使用
+        rep movsb
+        同:
+        s: movsb
+        loop s
+    cld:
+        将标志寄存器的df设为0
+    std:
+        将标志寄存器的df设为1
+    pushf:
+        将标志寄存器的值压栈
+    popf:
+        将栈中数据弹入标志寄存器
+    int:
+        中段指令
 
 伪指令
+    编译器可以处理常数的表达式
     段名 segment
     段名 ends
         定义一个段
@@ -187,6 +261,7 @@ Debug调试工具
             push cs
             push ip
             jmp dwrod ptr 内存
+
 
 汇编语法类
     数据不能以字母开头,要在前面加0
@@ -234,6 +309,14 @@ Debug调试工具
         [bx+di+idata]
         [bp+si+idata]
         [bp+di+idata]
+
+程序中断过程
+    1、取得中段类型码
+    2、pushf
+    3、TF=0,IF=0
+    4、push CS
+    5、push IP
+    6、IP=N*4,CS=N*4+2
 
 
 
