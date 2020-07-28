@@ -261,6 +261,8 @@ Debug调试工具
             push cs
             push ip
             jmp dwrod ptr 内存
+    nop 空指令
+        占一个字节
 
 
 汇编语法类
